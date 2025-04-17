@@ -1,4 +1,6 @@
 fn main(){
-    let some_num = 100;
-    let mut _some_new_num = some_num;
+    let car = String::from("Red");
+
+    let car1 = car;
+    println!("Car color is {}", car1); // This will cause a compile-time error
 }
