@@ -1,6 +1,9 @@
-fn main(){
-    let car = String::from("Red");
+use core::slice;
 
-    let car1 = car;
-    println!("Car color is {}", car1); // This will cause a compile-time error
+fn main(){
+
+    let mut trip = String::from("Hello my");
+
 }
+
+
