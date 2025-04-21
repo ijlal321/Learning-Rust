@@ -1,34 +1,36 @@
 /*
-Define a Flight struct with the following fields:
-  - an `origin` field (String)
-  - a `destination` field (String)
-  - a `price` field (f64)
-  - a `passengers` field (u32)
+Define a Tier enum with three variants: Gold, Silver,
+Platinum. Derive a Debug implementation for the Tier enum.
 
-Derive a Debug trait implementation for the Flight struct.
+Define a Subscription enum with three variants: Free,
+Basic, and Premium. Derive a Debug implementation for the
+Subscription enum.
 
-Define a `new` constructor function that returns a new
-instance of a Flight.
+The Free variant should have no associated data.
 
-Define a `change_destination` method that accepts a new
-destination and overwrites the value of the `destination`
-field.
+The Basic variant should be a tuple variant with two pieces
+of data. The first one should be a f64 (the price per month)
+and the second one should be a u32 (the number of months).
 
-Define a `increase_price` method that raises the value
-of the `price` by 20% (multiply the `price` field by 1.20).
-Make sure to save the new `price` field value.
+The Premium variant should be a struct variant with a 'tier'
+field. The tier field should be a Tier enum value.
 
-Define a `itinerary` method that prints out both the
-`origin` and `destination` fields in the following format
-(origin -> destination).
+Define a 'summarize' method on the Subscription enum.
 
-Use the constructor function to create a new Flight instance
-in the main function. Invoke all of the defined methods.
-Print out the struct in Debug format to confirm the struct
-updates as you expect.
+If the Subscription is Free, output the text "You have
+limited access to the site".
 
-Use struct update syntax to copy the `price` and `passengers`
-fields to a new Flight struct instance. Make sure to provide
-new Strings for the remaining fields to ensure ownership
-doesn't transfer. Assign the new Flight to a separate variable.
+If the Subscription is Basic, output the text "You have
+limited access to the site's premium features for {price}
+for {months} months", where {price} amd {months} come from
+the tuple variant's associated data.
+
+If the Subscription is Premium, output the text "You have
+full access to the site's premium features. Your tier is
+{tier:?}"", where {tier} comes from the struct variant's
+associated 'tier' field.
+
+In the `main` function, create 3 instances of Subscription,
+each one with a different variant. Invoke the `summarize`
+method on each instance.
 */
