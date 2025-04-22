@@ -1,37 +1,46 @@
 #[derive(Debug)]
-enum Tier {
-    Gold,
-    Silver,
-    Platinum,
+enum DigitalContent {
+    AudioFile,
+    VideoFile
 }
 
-enum Subscription {
-    Free,
-    Basic(f64, u32), // price per month, num of months
-    Premium { tier: Tier },
+#[derive(Debug)]
+struct ChatMessage<T> {
+    content: T,
+    time: String,
 }
 
-impl Subscription {
-    fn summarize(&self) {
-        match self {
-            Subscription::Free => println!("You have limited access to the site"),
-            Subscription::Basic(price, months) => println!(
-                "You have limited access to the site's premium features for {price} for {months} months"
-            ),
-            Subscription::Premium { tier } => println!(
-                "You have full access to the site's premium features. Your tier is {tier:?}"
-            ),
-        }
+impl ChatMessage<DigitalContent> {
+
+    fn consume_entertainment(&self) {
+        println!("Watching the {:?}", self.content)
     }
 }
 
-fn main() {
-    let instance_1 = Subscription::Free;
-    let instance_2 = Subscription::Basic(9.99, 12);
-    let instance_3 = Subscription::Premium { tier: Tier::Gold };
+impl <T> ChatMessage<T> {
+    fn retrieve_time(&self) -> String {
+        self.time.clone()
+    }
+}
 
-    instance_1.summarize();
-    instance_2.summarize();
-    instance_3.summarize();
+
+fn main() {
+    let ChatMessage = ChatMessage {
+        content: "Hello world",
+        time: "12:00".to_string(),
+    };
+
+    let ChatMessage = ChatMessage {
+        content: String::from("Hello world"),
+        time: "12:00".to_string(),
+    };
+
+    let ChatMessage = ChatMessage {
+        content: DigitalContent::AudioFile,
+        time: "12:00".to_string(),
+    };
     
+
+    ChatMessage.consume_entertainment();
+    println!("The time is {}", ChatMessage.retrieve_time());
 }
