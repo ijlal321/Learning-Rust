@@ -1,36 +1,37 @@
 /*
-Define a Tier enum with three variants: Gold, Silver,
-Platinum. Derive a Debug implementation for the Tier enum.
+Let's model a real-time chat system where users can
+share audio and video files.
 
-Define a Subscription enum with three variants: Free,
-Basic, and Premium. Derive a Debug implementation for the
-Subscription enum.
+Define a DigitalContent enum with two variants:
+AudioFile and VideoFile. Derive a Debug implementation.
 
-The Free variant should have no associated data.
+Define a ChatMessage struct with two fields: `content`
+and `time`. The struct should define one generic type, T,
+which will be the type of the `content` field.
+The `time` field should always be a String.
+Derive a Debug implementation.
 
-The Basic variant should be a tuple variant with two pieces
-of data. The first one should be a f64 (the price per month)
-and the second one should be a u32 (the number of months).
+Add an impl block for ChatMessage structs whose T type
+is a DigitalContent enum. Define a `consume_entertainment`
+method that prints out the value of the `content` field in
+Debug format. For example, "Watching the AudioFile".
 
-The Premium variant should be a struct variant with a 'tier'
-field. The tier field should be a Tier enum value.
+Add an impl block for ChatMessage structs with any type T.
+Define a `retrieve_time` method that returns a String.
+It should return a clone of the `time` field from
+the struct.
 
-Define a 'summarize' method on the Subscription enum.
+In `main`, create a ChatMessage with `content` set to a
+string slice.
 
-If the Subscription is Free, output the text "You have
-limited access to the site".
+Create another ChatMessage with `content` set to a String.
 
-If the Subscription is Basic, output the text "You have
-limited access to the site's premium features for {price}
-for {months} months", where {price} amd {months} come from
-the tuple variant's associated data.
+Create another ChatMessage with `content' set to a
+DigitalContent variant.
 
-If the Subscription is Premium, output the text "You have
-full access to the site's premium features. Your tier is
-{tier:?}"", where {tier} comes from the struct variant's
-associated 'tier' field.
+Invoke the `consume_entertainment` method on the
+ChatMessage storing a DigitalContent enum.
 
-In the `main` function, create 3 instances of Subscription,
-each one with a different variant. Invoke the `summarize`
-method on each instance.
+Invoke the `retrieve_time` method on all 3 ChatMessage
+instances and print out each String's content.
 */
