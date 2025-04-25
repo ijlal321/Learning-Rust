@@ -1,29 +1,18 @@
 fn main() {
-    let my_option = MyOption::Some("hello");
-    let none_option = MyOption::<i32>::None;
+    let some_num = SomeEnum::<i32>::Type1(11); 
+    some_num.check_var();
 
-    println!("{:?}  ,  {:?}", my_option, none_option);
-
-    let my_option_res = my_option.unwrap("not working");
-    let none_res = none_option.unwrap(11);
-
-    println!("{}.", my_option_res);
-    println!("{}.", none_res);
-    
+    let some_other_num = SomeEnum::Type1(11.12);
 }
 
-impl <T> MyOption<T> {
-    fn unwrap(self, default_res: T) -> T {
-        match self {
-            MyOption::Some(value) => value,
-            MyOption::None => default_res
-        }
+#[derive(Debug)]
+enum SomeEnum <T> {
+    Type1(T)
+}
+
+impl SomeEnum <i32>{
+
+    fn check_var(&self) {
+        println!("{:?}", self)
     }
-}
-
-
-#[derive(Debug, Clone, Copy)]
-enum MyOption<T> {
-    Some(T),
-    None
 }
