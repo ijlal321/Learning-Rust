@@ -1,18 +1,60 @@
 fn main() {
-    let some_num = SomeEnum::<i32>::Type1(11); 
-    some_num.check_var();
+    let resturant_a: Restaurant = Restaurant{
+        reservations:11,
+        has_mice_infestation: true
+    };
 
-    let some_other_num = SomeEnum::Type1(11.12);
+    println!("{:?}", resturant_a.chef_special());
+    println!("{:?}", resturant_a.deliver_burger("123 Elm Street"));
+
+    let resturant_b: Restaurant = Restaurant{
+        reservations:15,
+        has_mice_infestation: false
+    };
+
+    println!("{:?}", resturant_b.chef_special());
+    println!("{:?}", resturant_b.deliver_burger(""));
+    println!("{:?}", resturant_b.deliver_burger("Some add"));
+
 }
 
 #[derive(Debug)]
-enum SomeEnum <T> {
-    Type1(T)
+struct Food {
+    name: String,
 }
 
-impl SomeEnum <i32>{
+struct Restaurant {
+    reservations: u32,
+    has_mice_infestation: bool,
+}   
 
-    fn check_var(&self) {
-        println!("{:?}", self)
+impl Restaurant {
+
+    fn chef_special(&self) -> Option<Food> {
+        
+        if self.has_mice_infestation == true {
+            None
+        }
+        else if self.reservations < 12 {
+            Some(Food{name: String::from("Uni Sashimi")})
+        }
+        else{
+            Some(Food{name: String::from("Strip Steak")})
+        }
+
     }
+
+    fn deliver_burger(&self, address: &str) -> Result<Food, String> {
+        if self.has_mice_infestation == true {
+            Err(String::from("Sorry, we have a mice problem"))
+        }
+        else if address.is_empty() {
+            Err(String::from("No delivery address specified"))
+        }
+        else{
+            Ok(Food{name: String::from("Burger")})
+        }
+    }
+
 }
+
