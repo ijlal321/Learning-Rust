@@ -1,12 +1,15 @@
-use std::io::{self, stdin};
 use std::fs;
+use std::io::{self, stdin};
 use std::process;
 
 fn main() {
     let res = write_to_file();
-    match res{
+    match res {
         Ok(..) => println!("Successfully done"),
-        Err(error) => println!("Some error occured: {}", error)
+        Err(error) => {
+            eprintln!("Some error occured: {}", error);
+            process::exit(1);
+        }
     }
 }
 
@@ -22,6 +25,4 @@ fn write_to_file() -> io::Result<String> {
     fs::write(file_name.trim(), data_to_write.trim())?;
 
     Ok(file_name)
-
-
 }
