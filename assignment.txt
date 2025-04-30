@@ -1,91 +1,43 @@
 /*
-For this challenge, we'll be modeling a fitness program.
+Bring the HashMap type into the current's file's namespace.
 
-Create a new Cargo project. Give your project a name of
-`fitness`.
+Declare a `sauces_to_meals` HashMap. The keys will be
+string slices and the values will be a vector of string
+slices. Use the `from` function to populate the HashMap
+with 2 key-value pairs:
 
-The project will include both a binary crate and a library
-crate. Create the required files in the `src` directory.
+Key: "Ketchup"
+Value: Vector of ["French Fries", "Burgers", "Hot Dogs"]
 
-We'll have 3 modules: `diet`, `weightlifting`, and `cardio`.
-Declare the 3 modules in the library crate root.
+Key: "Mayonnaise"
+Value: Vector of ["Sandwiches", "Burgers", "Coleslaw"]
 
-Use an inline module definition for the `diet` module.
-Inside the `diet` module:
-- Declare a NUTRITIONIST constant set to "Norah Nutrition"
+Use the `insert` method to add the following key-value
+pair to the HashMap.
 
-- Declare an `ask_about_program` function that outputs the text
-  "The nutritionist is Norah Nutrition" (use the constant).
+Key: "Mustard"
+Value: Vector of ["Hot dog", "Burgers", "Pretzels"]
 
-Use a file module definition for the `weightlifting` module.
-Inside the `weightlifting` module:
-- Declare a PERSONAL_TRAINER constant set to "Will Weight"
+Use the `remove` method to remove the key-value pair
+where "Mayonnaise" is the key. Find a way to retrieve
+the vector inside the Option and print it out.
 
-- Declare an `ask_about_program` function that outputs the text
-  "The weightlifting trainer is Will Weight" (use the constant)
+Use the `get` method to retrieve the key-value pair
+where "Mustard" is the key. Find a way to retrieve
+the vector inside the Option and print it out.
 
-- Declare an Exercise struct with a `name` field (String) and
-  a `reps` field (u32). Derive a Debug implementation.
+Use the `entry` and `or_insert` methods to add the
+following key-value pair:
 
-- Add a `new` constructor function to the Exercise struct
-  that returns an Exercise instance.
+Key: "Soy Sauce"
+Value: Vector of ["Sushi", "Dumplings"]
 
-Use a folder module definition for the `cardio` module.
-Inside the `cardio` module:
-- Declare a PERSONAL_TRAINER constant set to "Carl Cardio"
+Finally, print out the final `sauces_to_meals` HashMap.
 
-- Declare an `ask_about_program` function that outputs the text
-  "The cardio trainer is Carl Cardio" (use the constant)
-
-- Declare a CardioTool enum with 2 variants: Treadmill
-  and Bike. Derive a Debug implementation.
-
-- Declare an Exercise struct with a `day` field (String),
-  a `tool` field (CardioTool), and a `minutes` field (u32).
-  Derive a Debug implementation.
-
-- Add a `new` constructor function to the Exercise struct
-  that returns an Exercise instance.
-
-In the library crate root:
-- Use the `use` keyword to bring the CardioTool enum into
-  scope
-
-- Assign the alias `CardioExercise` to cardio::Exercise
-
-- Assign the alias `WeightliftingExercise` to
-  weightlifting::Exercise
-
-- Define a GymWorkout struct with a `cardio` field (an
-  Exercise struct from the `cardio` module) and a `weightlifting`
-  field (an Exercise struct from the `weightlifting` module).
-  Implement the Debug trait.
-
-- Define a `new` constructor function on the GymWorkout struct.
-  The function should invoke ALL 3 of the `ask_about_program`
-  functions, then return an instance of the GymWorkout struct.
-  Pick arbitrary values for the required struct fields.
-
-Finally, in the binary crate root:
-- Invoke the `GymWorkout::new` function and print out the
-  GymWorkout struct in Debug format.
-
----
-
-Here is what a sample output might look like:
-
-The nutritionist is Norah Nutrition
-The cardio trainer is Carl Cardio
-The weightlifting trainer is Will Weight
-GymWorkout {
-    weightlifting: Exercise {
-        name: "Bench Press",
-        reps: 8,
-    },
-    cardio: Exercise {
-        day: "Thursday",
-        tool: Bike,
-        minutes: 30,
-    },
+The final result should be:
+{
+  "Ketchup": ["French Fries", "Burgers", "Hot Dogs"],
+  "Soy Sauce": ["Sushi", "Dumplings"],
+  "Mustard": ["Hot dog", "Burgers", "Pretzels"]
 }
 */
