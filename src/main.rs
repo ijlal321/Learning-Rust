@@ -1,32 +1,27 @@
-use std::{collections::HashMap, vec};
-
+use std::io::{self, stdin};
+use std::fs;
+use std::process;
 
 fn main() {
-    let mut sauces_to_meals: HashMap<&str, Vec<&str>> = HashMap::from([
-        ("Ketchup", vec!["French Fries", "Burgers", "Hot Dogs"]),
-        ("Mayonnaise", vec!["Sandwiches", "Burgers", "Coleslaw"]),
-    ]);
-
-    let res = sauces_to_meals.insert("Mustard", vec!["Hot dog", "Burgers", "Pretzels"]);
-    
-    if res.is_some() {
-        println!("value was already present, so updated");
-    }
-
-    let res = sauces_to_meals.remove("Mayonnaise");
-    match res {
-        Some(ingredients) => println!("removed values are {:?}", ingredients),
-        None => println!("Nothing is removed.")
-    }
-
-    let res = sauces_to_meals.get("Mustard");
+    let res = write_to_file();
     match res{
-        Some(ingredients) => println!("These are ingredients: {:?}", ingredients),
-        None=> println!("Nothung found")
+        Ok(..) => println!("Successfully done"),
+        Err(error) => println!("Some error occured: {}", error)
     }
+}
 
-    sauces_to_meals.entry("Soy Sauce").or_insert(vec!["Sushi", "Dumplings"]);
+fn write_to_file() -> io::Result<String> {
+    println!("What file would you like to write to, Master -?");
+    let mut file_name = String::new();
+    stdin().read_line(&mut file_name)?;
 
-    println!("final saouces to meals are: \n {:#?}", sauces_to_meals);
+    println!("What would you like to write to the file, Master -?");
+    let mut data_to_write = String::new();
+    stdin().read_line(&mut data_to_write)?;
+
+    fs::write(file_name.trim(), data_to_write.trim())?;
+
+    Ok(file_name)
+
 
 }
