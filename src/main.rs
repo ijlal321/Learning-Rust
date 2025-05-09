@@ -1,3 +1,4 @@
+use std::fmt::Error;
 use std::fs;
 use std::io::{self, stdin};
 use std::process;
@@ -13,7 +14,7 @@ fn main() {
     }
 }
 
-fn write_to_file() -> io::Result<String> {
+fn write_to_file() -> Result<String, io::Error> {
     println!("What file would you like to write to, Master -?");
     let mut file_name = String::new();
     stdin().read_line(&mut file_name)?;
