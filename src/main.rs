@@ -1,43 +1,61 @@
-
-
-fn double_the_length<T>(vec: & Vec<T> ) -> usize{
-    vec.len() * 2
+#[derive(Debug)]
+struct SupermarketItem {
+    name: String,
+    price: f64,
 }
 
-fn last_two<T>(collection: &[T]) -> &[T] {
-    let collection_len = collection.len();
-    &collection[collection_len-2..]
-} 
-
-fn first_five<'a>(text: &'a str, announcement: &'a str) -> &'a str{
-    println!("{}", announcement);
-    &text[..5]
+#[derive(Debug)]
+struct ShoppingCart {
+    items: Vec<SupermarketItem>,
 }
 
-fn find_string_that_has_content<'a>(first: &'a str, second: &'a str, target: &str) -> &'a str {
-    if target.contains(first) {
-        first
-    }else {
-        second
+impl ShoppingCart {
+    fn traverse_items<F>(&mut self, mut operation: F)
+    where
+        F: FnMut(&mut SupermarketItem),
+    {
+        let mut market_len: usize = (self.items.len() as usize);
+        while market_len > 0 {
+            operation(&mut self.items[market_len - 1]);
+            market_len -= 1;
+        }
+    }
+
+    fn checkout<F>(self: Self, operation: F)
+    where
+        F: FnOnce(ShoppingCart),
+    {
+        operation(self);
     }
 }
 
-
 fn main() {
-    println!("{}", double_the_length(&vec![1, 2, 3]));
+    let items = vec![
+        SupermarketItem {
+            name: "100".to_string(),
+            price: 100.0,
+        },
+        SupermarketItem {
+            name: "200".to_string(),
+            price: 200.0,
+        },
+    ];
+    let mut shopping_cart = ShoppingCart { items };
 
-    let my_vec = vec![1, 2, 3, 4, 5, 6];
-    let my_arr = [1, 2, 3, 4, 5, 6];
-    println!("{:?}", last_two(&my_vec));
-    println!("{:?}", last_two(&my_vec[0..3]));
-    println!("{:?}", last_two(&my_arr));
-    println!("{:?}", last_two(&my_arr[0..3]));
+    shopping_cart.traverse_items(|item: &mut SupermarketItem| item.price *= 0.85);
+    shopping_cart.traverse_items(|item: &mut SupermarketItem| item.name = item.name.to_lowercase());
 
-    println!("{:?}", first_five("refrigerator", "Hello"));
+    println!("{:?}", shopping_cart);
 
-    println!(
-        "{:?}",
-        find_string_that_has_content("programming", "dining", "gram")
-    );
+    let mut total_price = 0.0;
+
+    shopping_cart.checkout(|mut cart: ShoppingCart| {
+        println!("{:?}", cart);
+
+        cart.traverse_items(|item: &mut SupermarketItem| {
+            total_price += item.price;
+        });
+    } );
+
+    println!("{:.2} $", total_price)
 }
-
