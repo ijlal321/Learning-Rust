@@ -45,8 +45,6 @@ fn main() {
     shopping_cart.traverse_items(|item: &mut SupermarketItem| item.price *= 0.85);
     shopping_cart.traverse_items(|item: &mut SupermarketItem| item.name = item.name.to_lowercase());
 
-    println!("{:?}", shopping_cart);
-
     let mut total_price = 0.0;
 
     shopping_cart.checkout(|mut cart: ShoppingCart| {
